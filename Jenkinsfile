@@ -21,6 +21,7 @@ pipeline {
                 echo 'Deploying....'
                 echo 'pulling in Helm Chart'
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'helm']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/mikepawlak/caroline-hub-helm-chart.git']]])
+                sh "export KUBECONFIG=../../config:$HOME/.kube/config"
                 sh "cd helm"
                 sh "kubectl config get-contexts"
                 // sh "kubectl config use-context kubernetes-admin@kubernetes && kubectl config get-contexts"
