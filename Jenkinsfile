@@ -22,11 +22,8 @@ pipeline {
                 echo 'pulling in Helm Chart'
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'helm']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/mikepawlak/caroline-hub-helm-chart.git']]])
                 sh "cd helm"
-                sh "whoami"
-                sh "pwd"
-                sh "kubect config get-contexts"
-                // sh "kubectl config use-context kubernetes-admin@kubernetes && kubectl config get-contexts"
-                // sh "helm upgrade caroline-hub /helm-chart"
+                sh "kubectl config use-context kubernetes-admin@kubernetes && kubectl config get-contexts"
+                sh "helm upgrade caroline-hub /helm-chart"
             }
         }
     }
