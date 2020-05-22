@@ -23,7 +23,7 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'helm']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/mikepawlak/caroline-hub-helm-chart.git']]])
                 sh "export KUBECONFIG=../../../config:/var/lib/jenkins/.kube/config"
                 sh "cd helm"
-                sh "cat /var/lib/jenkins/.kube/config"
+                sh "ls /var/lib/jenkins"
                 sh "kubectl config get-contexts"
                 // sh "kubectl config use-context kubernetes-admin@kubernetes"
                 // sh "helm upgrade caroline-hub /helm-chart"
