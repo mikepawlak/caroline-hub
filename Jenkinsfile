@@ -2,20 +2,20 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
-            steps {
-                echo "Building"
-                slackSend color: 'good', message: 'Starting job for caroline-hub...'
-                sh "node -v"
-                sh "npm install"
-            }
-        }
-        stage('Test') {
-            steps {
-                echo "Testing"
-                sh "npm test"
-            }
-        }
+        // stage('Build') {
+        //     steps {
+        //         echo "Building"
+        //         slackSend color: 'good', message: 'Starting job for caroline-hub...'
+        //         sh "node -v"
+        //         sh "npm install"
+        //     }
+        // }
+        // stage('Test') {
+        //     steps {
+        //         echo "Testing"
+        //         sh "npm test"
+        //     }
+        // }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
@@ -23,7 +23,7 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'helm']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/mikepawlak/caroline-hub-helm-chart.git']]])
                 sh "export KUBECONFIG=../../../config:/var/lib/jenkins/.kube/config"
                 sh "cd helm"
-                sh "ls /var/lib/jenkins"
+                sh "ls /var/lib/jenkins -a"
                 sh "kubectl config get-contexts"
                 // sh "kubectl config use-context kubernetes-admin@kubernetes"
                 // sh "helm upgrade caroline-hub /helm-chart"
