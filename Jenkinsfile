@@ -24,9 +24,8 @@ pipeline {
                 sh "export KUBECONFIG=../../config:$HOME/.kube/config"
                 sh "cat ../../config"
                 sh "cd helm"
-                sh "kubectl config get-contexts"
-                // sh "kubectl config use-context kubernetes-admin@kubernetes && kubectl config get-contexts"
-                // sh "helm upgrade caroline-hub /helm-chart"
+                sh "kubectl config use-context kubernetes-admin@kubernetes && kubectl config get-contexts"
+                sh "helm upgrade caroline-hub /helm-chart"
             }
         }
     }
