@@ -22,7 +22,7 @@ pipeline {
                 echo 'pulling in Helm Chart'
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'helm']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/mikepawlak/caroline-hub-helm-chart.git']]])
                 sh "kubectl config use-context kubernetes-admin@kubernetes"
-                sh "helm upgrade caroline-hub helm --install --namespace='caroline' --wait --timeout=600" //these rpis take a while to deploy to
+                sh "helm upgrade caroline-hub helm --install --namespace='caroline' --wait --timeout=600s" //these rpis take a while to deploy to
             }
         }
     }
